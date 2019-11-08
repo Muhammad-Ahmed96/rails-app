@@ -1,0 +1,36 @@
+- if resource.errors.present?
+  - email_errors = resource.errors[:email]
+  - password_errors = resource.errors[:password]
+  - password_confirm_errors = resource.errors[:password_confirmation]
+.row
+  .col-lg-4.offset-lg-4
+    .card.border.border-primary
+      .card-head.text-center.border-primary.border-bottom
+        %h2.text-primary Sign Up
+      .card-body
+        = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+          .form-group
+            = f.email_field :email, autofocus: true, autocomplete: "email",                         |
+              class: "form-control #{ email_errors.present? ? 'border-danger' : 'border-primary'}", |
+              placeholder: 'Enter Email'                                                            |
+            - if email_errors.present?
+              %span.error_msg
+                Email #{email_errors.first}
+          .form-group
+            = f.password_field :password, autocomplete: "current-password", class: "form-control #{ password_errors.present? ? 'border-danger' : 'border-primary'}", placeholder: 'Enter Password'
+            - if password_errors.present?
+              %span.error_msg
+                Password #{password_errors.first}
+          .form-group
+            = f.password_field :password_confirmation, autocomplete: "password_confirmation", class: 'form-control border-primary', placeholder: 'Confirm Password'
+            - if password_confirm_errors.present?
+              %span.error_msg
+                Confirm Password #{password_confirm_errors.first}
+          .float-right
+            = link_to "Forgot your password?", new_password_path(resource_name), class: 'text-muted'
+          %br/
+          .form-group.mb-2.mt-2{:style => "margin-top: 5px;"}
+            = f.submit "Sign up", class: 'btn btn-success btn-block'
+          .form-group.text-center
+            %span Already have account?
+            = link_to "Sign in", new_session_path(resource_name), class: 'btn btn-outline-primary btn-block'

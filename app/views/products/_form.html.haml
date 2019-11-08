@@ -1,0 +1,54 @@
+
+= form_for(@product) do |f|
+	.form-group
+		=f.label :name
+		=f.text_field :name, class: 'form-control'
+	.form-group
+		%img#img_prev.img-thumbnail{ src: "#{@product.image.present? ? @product.image : 'https://via.placeholder.com/300x150'}", width: 200, height: 200}
+		%br
+		%br
+		=f.file_field :image, class: 'btn btn-default border bg-white', id: 'avatar-upload'
+		= button_tag "Remove", id: 'remove', class: 'hidden btn btn-danger'
+		= f.hidden_field :image, id: 'data-image'
+	.form-group
+		=f.label :description
+		=f.text_area :description,rows: 4, class: 'form-control'
+	.form-group
+		=f.label :price
+		=f.text_field :price, class: 'form-control'
+	.form-group
+		=f.label :category
+		=f.collection_select :category_id, Category.all, :id, :name, {include_blank: "--Select--"},{class: 'form-control'}
+	.form-group
+		=f.submit "#{@product.new_record? ? 'Save product' : 'Update Product'}", class: 'btn btn-success btn-block'
+
+	= link_to "back", products_path
+
+:javascript
+	$(function() {
+	  function readURL(input) {
+	    if (input.files && input.files[0]) {
+	      var reader = new FileReader();
+
+	      reader.onload = function (e) {
+	        $('#img_prev').attr('src', e.target.result);
+	        $('#data-image').val(e.target.result);
+	        $("#remove").removeClass("hidden");
+	      }
+	      reader.readAsDataURL(input.files[0]);
+	    }
+	  }
+
+	  $("#avatar-upload").change(function(){
+	  	debugger;
+	    $('#img_prev').removeClass('hidden');
+	    readURL(this);
+	  });
+
+	  $("#remove").click(function(){
+	  	$("#img_prev").attr('src','https://via.placeholder.com/300x150');
+	  	$(this).addClass('hidden');
+	  	$("#avatar-upload").val("");
+	  	return false;
+	  })
+	});

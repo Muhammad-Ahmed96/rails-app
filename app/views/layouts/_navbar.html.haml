@@ -1,0 +1,33 @@
+%nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
+  %button.navbar-toggler{"aria-controls" => "navbarTogglerDemo03", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarTogglerDemo03", "data-toggle" => "collapse", :type => "button"}
+    %span.navbar-toggler-icon
+  %a.navbar-brand{:href => "#"} My App
+  #navbarTogglerDemo03.collapse.navbar-collapse
+    %ul.navbar-nav.mr-auto.mt-2.mt-lg-0
+      %li.nav-item.active
+        / <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        = link_to 'Home', root_path, class: 'nav-link'
+      %li.nav-item
+        = link_to "Products", products_path, class: 'nav-link'
+        / %a.nav-link{:href => "#"} Link
+      %li.nav-item
+        %a.nav-link.disabled{"aria-disabled" => "true", :href => "#", :tabindex => "-1"} Disabled
+    %ul.navbar-nav
+      - if user_signed_in?
+        %li.nav-item
+          = link_to edit_user_registration_path, class: 'nav-link' do
+            %i.far.fa-user.mx-2
+            = current_user.name
+        %li.nav-item
+          = link_to destroy_user_session_path,method: :delete, class: 'nav-link' do
+            %span= "Sign out&nbsp;&nbsp;".html_safe
+            %i.fas.fa-sign-out-alt
+      - else
+        %li.nav-item
+          = link_to new_user_session_path, class: 'nav-link' do
+            %i.fas.fa-sign-in-alt
+            Log In
+        %li
+          = link_to new_user_registration_path, class: 'nav-link' do
+            %span="Signup&nbsp;".html_safe
+            %i.fas.fa-plus

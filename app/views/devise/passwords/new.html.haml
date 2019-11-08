@@ -1,0 +1,18 @@
+- if resource.errors.present?
+  - email_errors = resource.errors[:email]
+.row
+  .col-lg-4.offset-lg-4
+    .card.border.border-primary
+      .card-head.text-center.border-primary.border-bottom
+        %h2.text-primary Forgot your password?
+      .card-body
+        = form_for(resource, as: resource_name, url: password_path(resource_name)) do |f|
+          .form-group
+            = f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control border-primary', placeholder: 'Enter Email'
+            - if email_errors.present?
+              %span.error_msg
+                Email #{email_errors.first}
+          .form-group.mb-2.mt-2{:style => "margin-top: 5px;"}
+            = f.submit "Reset Password", class: 'btn btn-success btn-block'
+          / <div class="form-group mt-3">
+          / </div>

@@ -1,0 +1,24 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Myrailsapp
+    = csrf_meta_tags
+    = csp_meta_tag
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'notify', 'data-turbolinks-track': 'reload'
+  %body
+    - message  = flash[:alert] || flash[:notice]
+    - msg_klass = flash[:alert].present? ? "danger" : "success"
+    - message_hash = "{\"status\": \"#{msg_klass}\"}"
+    - if message.present?
+      %button#message.hidden{"data-message" => message, "data-notify" => "", "data-options" => "#{message_hash}", :type => "button"}
+    = render 'layouts/navbar'
+    .wrapper
+      = yield
+    = javascript_tag do
+      $(function(){
+      $("#message").click();
+      })

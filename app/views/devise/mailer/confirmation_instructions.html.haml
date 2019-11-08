@@ -1,0 +1,4 @@
+%p
+  Welcome #{@resource.email} !
+%p You can confirm your account email through the link below:
+%button{:style => "color:white;background-color: blue;padding: 5px 10px;"}= link_to 'Confirm my account', user_confirmation_url(confirmation_token: @token)

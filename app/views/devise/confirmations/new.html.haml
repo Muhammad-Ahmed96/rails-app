@@ -1,0 +1,24 @@
+
+- email_errors = resource.errors[:email]
+.row
+  .col-lg-4.offset-lg-4
+    .card.border.border-primary
+      .card-head.text-center.border-primary.border-bottom
+        %h2.text-primary Resent Confirmation Email
+      .card-body
+        = form_for(resource, as: resource_name, url: user_confirmation_path, html: { method: :post }) do |f|
+          /= render "devise/shared/error_messages", resource: resource
+          .field
+            = f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: 'form-control border-primary', placeholder: 'Enter Email'
+            - if email_errors.present?
+              %span.error_msg
+                Email #{email_errors.first}
+          .form-group.mb-2.mt-2{:style => "margin-top: 5px;"}
+            = f.submit "Resend confirmation instructions", class: 'btn btn-primary btn-block'
+          .form-group.text-center
+            %span Do not have account?
+            = link_to "Sign up", new_registration_path(resource_name), class: 'btn btn-outline-success btn-block'
+          .form-group.text-center
+            %span Account already confirmed?
+            = link_to "Log In", new_user_session_path, class: 'btn btn-outline-warning btn-block'
+          = render 'devise/shared/links'
