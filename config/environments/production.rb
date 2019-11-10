@@ -91,6 +91,17 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'https://rocky-woodland-40085.herokuapp.com', port: 3000 }
 
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.sendgrid.net',
+    port: 587,
+    enable_starttls_auto: true,
+    user_name: 'mahmedhanjra96',
+    password: 'Pakistan111',
+    authentication: 'plain',
+    domain: 'softericsolutions.com'
+  }
+  config.action_mailer.delivery_method = :smtp
+
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
   # middleware. The `delay` is used to determine how long to wait after a write
