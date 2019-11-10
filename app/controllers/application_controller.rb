@@ -20,10 +20,10 @@ class ApplicationController < ActionController::Base
         return true
       else
         flash[:alert] = "Only admin can perform this action"
-        return false
+        redirect_to root_path
       end
     else
-      return false
+      redirect_to root_path
     end
   end
 
