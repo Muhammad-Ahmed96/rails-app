@@ -1,2 +1,22 @@
-%h1 Categories#index
-%p Find me in app/views/categories/index.html.haml
+
+.text-center
+	%h2 All Categories
+= link_to "Create New Category", new_category_path, class: 'btn btn-primary'
+%br
+%br
+%table.table.table-bordered-table-responsive.table-striped.bg-white.border
+	%thead.thead-dark
+		%tr.border.border-dark
+			%th ID
+			%th Name
+			%th Description
+			%th{ colspan: 3} Actions
+	%tbody
+	-@categories.each do |product|
+		%tr
+			%td= product.id
+			%td= product.name
+			%td= product.description
+			%td= link_to "Show", product
+			%td= link_to "Edit", edit_product_path(product)
+			%td= link_to "Delete", product , method: :delete
