@@ -8,4 +8,7 @@ class User < ApplicationRecord
 
     has_many :purchases
 
+    validates :role, presence: true
+    enum role: [:member, :admin]
+
 end

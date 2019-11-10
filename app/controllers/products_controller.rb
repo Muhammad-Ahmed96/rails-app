@@ -15,7 +15,8 @@ class ProductsController < ApplicationController
   	if @product.save
   		flash[:alert] = "Product Save Successfully"
   		redirect_to products_path
-  	else
+    else
+      byebug
   		flash[:alert] = "Error saving the product"
   		render 'new'
   	end
