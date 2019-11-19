@@ -1,0 +1,18 @@
+.image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.full-width-image {
+    width: 100%;
+}
+
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}

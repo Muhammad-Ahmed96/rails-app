@@ -141,13 +141,15 @@
                 if ($this.options.timeout) {
 
                     var closefn = function() { $this.close(); };
+                    //to stop auto-hiding comment below
+                    //* START */
+                    $this.timeout = setTimeout(closefn, $this.options.timeout);
 
-                    // $this.timeout = setTimeout(closefn, $this.options.timeout);
-
-                    // $this.element.hover(
-                    //     function() { clearTimeout($this.timeout); },
-                    //     function() { $this.timeout = setTimeout(closefn, $this.options.timeout); }
-                    // );
+                    $this.element.hover(
+                        function() { clearTimeout($this.timeout); },
+                        function() { $this.timeout = setTimeout(closefn, $this.options.timeout); }
+                    );
+                    /* END */
                 }
 
             });
@@ -209,7 +211,7 @@
     Message.defaults = {
         message: "",
         status: "normal",
-        timeout: 5000,
+        timeout: 3000,
         group: null,
         pos: 'top-center'
     };

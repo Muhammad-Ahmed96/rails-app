@@ -1,0 +1,13 @@
+
+.row
+  .col-lg-4.offset-lg-4
+    .card.card-default.border.border-warning
+      .card-body
+        - if @product.product_image.attached?
+          =image_tag @product.product_image, class: 'full-width-image img img-thumbnail'
+        - else
+          =image_tag 'https://via.placeholder.com/300x150', class: 'full-width-image img img-thumbnail'
+        - if @product.product_image.attached?
+          .mt-1
+            = link_to "Preview", @product.product_image, class: 'btn btn-sm btn-warning float-left'
+            = link_to "Download", @product.product_image, download: '', class: 'btn btn-sm btn-primary float-right'

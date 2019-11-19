@@ -22,6 +22,10 @@
             %i.far.fa-user.mx-2
             = current_user.name
         %li.nav-item
+          = link_to "", class: 'nav-link' do
+            %i.fas.fa-cart-plus.mx-2
+            = current_user.purchases.where(is_purchased: false).count
+        %li.nav-item
           = link_to destroy_user_session_path,method: :delete, class: 'nav-link' do
             %span= "Sign out&nbsp;&nbsp;".html_safe
             %i.fas.fa-sign-out-alt

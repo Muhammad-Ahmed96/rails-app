@@ -5,7 +5,7 @@
 
 require("jquery")
 require("@rails/ujs").start()
-require("turbolinks").start()
+// require("turbolinks").start() //notification not showing on adding product to cart
 require("@rails/activestorage").start()
 require("channels")
 require("bootstrap/dist/js/bootstrap")

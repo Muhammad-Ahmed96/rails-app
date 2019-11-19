@@ -2,7 +2,7 @@
 - if @product.errors.present?
 	- category_errors = @product.errors[:category]
 
-= form_for(@product) do |f|
+= form_for(@product, multipart: true) do |f|
 	.form-group
 		=f.label :name
 		=f.text_field :name, class: 'form-control'
@@ -10,7 +10,7 @@
 		%img#img_prev.img-thumbnail{ src: "#{@product.image.present? ? @product.image : 'https://via.placeholder.com/300x150'}", width: 200, height: 200}
 		%br
 		%br
-		=f.file_field :image, class: 'btn btn-default border bg-white', id: 'avatar-upload'
+		=f.file_field :product_image, class: 'btn btn-default border bg-white', id: 'avatar-upload'
 		= button_tag "Remove", id: 'remove', class: 'hidden btn btn-danger'
 		= f.hidden_field :image, id: 'data-image'
 	.form-group

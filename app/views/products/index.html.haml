@@ -2,9 +2,17 @@
 .text-center
 	%h2 All Products
 = link_to "Create New Product", new_product_path, class: 'btn btn-primary'
+.search.float-right.mb-2
+	%h4 Filter by Category
+	= form_for :q, url: products_path, method: :get do |f|
+		.row
+			.col-lg-8
+				=f.select :category, Category.all.map { |p| [p.name, p.id] }, {include_blank: "--Select--",selected: @selected_cat_dropdown},{class: 'form-control'}
+			.col-lg-4
+				=f.submit "Search", class: 'btn btn-success float-right'
 %br
 %br
-%table.table.table-bordered-table-responsive.table-striped.bg-white.border
+%table.table.table-bordered.table-striped.bg-white.border.text-center
 	%thead.thead-dark
 		%tr.border.border-dark
 			%th ID
@@ -12,16 +20,21 @@
 			%th Name
 			%th Price
 			%th Description
-			%th{ colspan: 3} Actions
+			%th Category
+			%th{ colspan: 4} Actions
 	%tbody
 		-@products.each do |product|
 			%tr
 				%td= product.id
-				%td= product.image
+				%td
+					=image_tag product.product_image, class: 'image' if product.product_image.attached?
+					=image_tag 'https://via.placeholder.com/300x150', class: 'image' unless product.product_image.attached?
 				%td= product.name
 				%td= product.price
 				%td= product.description
-				%td= link_to "Show", product
-				%td= link_to "Edit", edit_product_path(product)
-				%td= link_to "Delete", product , method: :delete
-			
+				%td= product.category.name
+				%td= link_to "Show", product, class: 'btn btn-sm btn-primary'
+				- if user_signed_in?
+					%td= link_to "Edit", edit_product_path(product), class: 'btn btn-sm btn-success'
+					%td= link_to "Delete", product , method: :delete, class: 'btn btn-sm btn-danger'
+					%td= link_to "Add to Cart", add_to_cart_product_path(product), class: 'btn btn-sm btn-dark'
