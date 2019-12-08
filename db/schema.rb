@@ -33,15 +33,6 @@ ActiveRecord::Schema.define(version: 2019_11_13_051240) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "carts", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "product_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["product_id"], name: "index_carts_on_product_id"
-    t.index ["user_id"], name: "index_carts_on_user_id"
-  end
-
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -104,8 +95,6 @@ ActiveRecord::Schema.define(version: 2019_11_13_051240) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "carts", "products"
-  add_foreign_key "carts", "users"
   add_foreign_key "products", "categories"
   add_foreign_key "purchases", "products"
   add_foreign_key "purchases", "users"

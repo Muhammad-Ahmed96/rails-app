@@ -3,15 +3,16 @@
 	- category_errors = @product.errors[:category]
 
 = form_for(@product, multipart: true) do |f|
+	=f.hidden_field :id, id: 'product_id', value: @product.id
 	.form-group
 		=f.label :name
 		=f.text_field :name, class: 'form-control'
 	.form-group
-		%img#img_prev.img-thumbnail{ src: "#{@product.image.present? ? @product.image : 'https://via.placeholder.com/300x150'}", width: 200, height: 200}
+		=image_tag @product.product_image.attached? ? @product.product_image : 'https://via.placeholder.com/300x150', id: "img_prev", class: "img-thumbnail", width: "200", height: "200"
 		%br
 		%br
 		=f.file_field :product_image, class: 'btn btn-default border bg-white', id: 'avatar-upload'
-		= button_tag "Remove", id: 'remove', class: 'hidden btn btn-danger'
+		= button_tag "Remove", id: 'remove', class: "btn btn-danger #{@product.product_image.attached? ? '' : 'hidden'}"
 		= f.hidden_field :image, id: 'data-image'
 	.form-group
 		=f.label :description
@@ -46,15 +47,30 @@
 	  }
 
 	  $("#avatar-upload").change(function(){
-	  	debugger;
 	    $('#img_prev').removeClass('hidden');
 	    readURL(this);
 	  });
 
 	  $("#remove").click(function(){
-	  	$("#img_prev").attr('src','https://via.placeholder.com/300x150');
-	  	$(this).addClass('hidden');
-	  	$("#avatar-upload").val("");
-	  	return false;
+			id = $("#product_id").val();
+			data = { "id": id};
+			$.ajax({
+				'data': data,
+				'method': 'post',
+				'dataType': 'json',
+				'url': '/products/remove_image',
+				success: function(){
+					console.log('success');
+					$("#img_prev").attr('src','https://via.placeholder.com/300x150');
+	  			$(this).addClass('hidden');
+	  			$("#avatar-upload").val("");
+					return false;
+				},
+				error: function(e){
+					console.log(e);
+					return false;
+				}
+			});
+			return false;
 	  })
 	});

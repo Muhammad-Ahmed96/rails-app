@@ -33,6 +33,9 @@ class ProductsController < ApplicationController
   end
 
   def update
+    @product = Product.find(params[:id])
+    byebug
+    
   end
 
   def destroy
@@ -48,6 +51,9 @@ class ProductsController < ApplicationController
     redirect_to products_path
   end
 
+  def remove_image
+    byebug
+  end
   private
   def product_params
   	params.require(:product).permit(:name,:product_image,:description,:price,:category_id)
